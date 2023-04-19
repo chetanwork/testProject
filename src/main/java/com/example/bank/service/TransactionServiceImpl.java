@@ -6,6 +6,7 @@ import com.example.bank.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.Optional;
 
@@ -30,6 +31,7 @@ public class TransactionServiceImpl implements TransactionService{
      * @throws Exception if Account provided is not found, if balance is less than expected transfer amount
      */
     @Override
+    @Transactional
     public Account transferFunds(Long fromAccount, Long toAccount, int amount) throws Exception {
         Optional<Account> senderAccount = transactionRepository.findByaccountNumber(fromAccount);
         if(!senderAccount.isPresent()) {
